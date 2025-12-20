@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HTYF.Application\HTYF.Application.csproj" />
+    <ProjectReference Include="..\HTYF.Domain\HTYF.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Memberbase\" />
+    <Folder Include="Logging\" />
+    <Folder Include="Persistence\" />
+  </ItemGroup>
+
+</Project>
