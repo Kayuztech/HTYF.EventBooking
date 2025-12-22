@@ -1,4 +1,4 @@
-using HTYF.Web.Data;
+using HTYF.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

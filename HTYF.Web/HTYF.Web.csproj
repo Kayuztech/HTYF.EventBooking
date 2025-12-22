@@ -17,6 +17,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HTYF.Application\HTYF.Application.csproj" />
+    <ProjectReference Include="..\HTYF.Infrastructure\HTYF.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>
