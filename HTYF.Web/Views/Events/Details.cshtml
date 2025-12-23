@@ -34,14 +34,33 @@
             <div class="card shadow-sm border-0">
                 <div class="card-body">
                     <h5 class="card-title">Attend this event</h5>
-                    <p class="card-text text-muted">
-                        Registration is open for members.
-                    </p>
 
-                    <a href="#booking"
-                       class="btn btn-primary w-100">
-                        Book Now
-                    </a>
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <p class="card-text">
+                            Secure your spot by booking now.
+                        </p>
+
+                        <a asp-controller="Bookings"
+                           asp-action="Create"
+                           asp-route-eventId="@Model.Id"
+                           class="btn btn-primary w-100">
+                            Book Now
+                        </a>
+                    }
+                    else
+                    {
+                        <p class="text-muted">
+                            Please log in to book this event.
+                        </p>
+
+                        <a asp-area="Identity"
+                           asp-page="/Account/Login"
+                           asp-route-returnUrl="@Url.Action("Details", "Events", new { id = Model.Id })"
+                           class="btn btn-outline-secondary w-100">
+                            Login to Continue
+                        </a>
+                    }
                 </div>
             </div>
         </div>
