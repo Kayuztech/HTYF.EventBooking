@@ -1,0 +1,49 @@
+﻿@model HTYF.Domain.Entities.Event
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="container mt-5">
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <h2 class="fw-bold">@Model.Title</h2>
+
+            <p class="text-muted mb-3">
+                <i class="bi bi-clock"></i>
+                @Model.EventDateTime.ToString("dddd, dd MMM yyyy • hh:mm tt")
+            </p>
+
+            <p class="fs-6">
+                @Model.Summary
+            </p>
+
+            <hr />
+
+            <ul class="list-unstyled">
+                <li class="mb-2">
+                    <strong>📍 Location:</strong> @Model.Location
+                </li>
+                <li>
+                    <strong>👥 Capacity:</strong> @Model.Capacity
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Attend this event</h5>
+                    <p class="card-text text-muted">
+                        Registration is open for members.
+                    </p>
+
+                    <a href="#booking"
+                       class="btn btn-primary w-100">
+                        Book Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
