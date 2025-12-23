@@ -1,19 +1,24 @@
 ﻿using HTYF.Application.Interfaces;
 using HTYF.Application.ViewModels;
 using HTYF.Domain.Entities;
+using System.Linq;
 
 namespace HTYF.Application.Services
 {
     public class BookingService : IBookingService
     {
         private readonly IApplicationDbContext _context;
+        private readonly IMemberbaseService _memberbaseService;
 
-        public BookingService(IApplicationDbContext context)
+        public BookingService(
+            IApplicationDbContext context,
+            IMemberbaseService memberbaseService)
         {
             _context = context;
+            _memberbaseService = memberbaseService;
         }
 
-        public Task CreateBookingAsync(CreateEventBookingViewModel model)
+        public async Task CreateBookingAsync(CreateEventBookingViewModel model)
         {
             var booking = new EventBooking
             {
@@ -26,7 +31,22 @@ namespace HTYF.Application.Services
             };
 
             _context.AddEventBooking(booking);
-            return _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+
+            // Get event title safely (no EF async here)
+            var eventName = _context.Events
+                .Where(e => e.Id == model.EventId)
+                .Select(e => e.Title)
+                .FirstOrDefault();
+
+            if (!string.IsNullOrWhiteSpace(eventName))
+            {
+                await _memberbaseService.CreateOrUpdateContactAsync(
+                    model.Email,
+                    model.Name,
+                    eventName
+                );
+            }
         }
     }
 }

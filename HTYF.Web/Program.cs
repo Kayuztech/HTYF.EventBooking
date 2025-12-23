@@ -1,8 +1,10 @@
 using HTYF.Application.Interfaces;
 using HTYF.Application.Services;
+using HTYF.Infrastructure.Memberbase;
 using HTYF.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,13 @@ builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddHttpClient<IMemberbaseService, MemberbaseService>(client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["Memberbase:BaseUrl"]!);
+    client.DefaultRequestHeaders.Authorization =
+        new AuthenticationHeaderValue("Bearer", builder.Configuration["Memberbase:ApiKey"]);
+});
 
 var app = builder.Build();
 
