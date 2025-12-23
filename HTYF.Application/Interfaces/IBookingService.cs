@@ -4,6 +4,6 @@ namespace HTYF.Application.Interfaces
 {
     public interface IBookingService
     {
-        Task CreateBookingAsync(CreateEventBookingViewModel model);
+        Task<bool> CreateBookingAsync(CreateEventBookingViewModel model);
     }
 }

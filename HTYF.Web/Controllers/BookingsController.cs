@@ -28,9 +28,13 @@ namespace HTYF.Web.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            await _bookingService.CreateBookingAsync(model);
+            var success = await _bookingService.CreateBookingAsync(model);
 
-            TempData["Success"] = "Your booking submitted successfully.";
+            if (success)
+                TempData["Success"] = "Your booking submitted successfully.";
+            else
+                TempData["Warning"] = "Booking saved, but CRM sync failed.";
+
             return RedirectToAction("Index", "Events");
         }
     }

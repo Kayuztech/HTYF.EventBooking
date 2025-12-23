@@ -1,7 +1,4 @@
 ﻿using HTYF.Domain.Entities;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace HTYF.Application.Interfaces
 {
@@ -10,6 +7,7 @@ namespace HTYF.Application.Interfaces
         IQueryable<Event> Events { get; }
         IQueryable<EventBooking> EventBookings { get; }
 
+        void AddEvent(Event evt);
         void AddEventBooking(EventBooking booking);
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }

@@ -2,7 +2,6 @@
 using HTYF.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace HTYF.Infrastructure.Persistence
 {
@@ -19,9 +18,15 @@ namespace HTYF.Infrastructure.Persistence
         public DbSet<Event> EventsDbSet => Set<Event>();
         public DbSet<EventBooking> EventBookingsDbSet => Set<EventBooking>();
 
-        // Application layer sees IQueryable
+        // Application layer sees IQueryable only
         IQueryable<Event> IApplicationDbContext.Events => EventsDbSet;
         IQueryable<EventBooking> IApplicationDbContext.EventBookings => EventBookingsDbSet;
+
+        // Write operations exposed explicitly
+        public void AddEvent(Event evt)
+        {
+            EventsDbSet.Add(evt);
+        }
 
         public void AddEventBooking(EventBooking booking)
         {

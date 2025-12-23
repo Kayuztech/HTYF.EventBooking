@@ -20,6 +20,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
 builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddScoped<EventSyncService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

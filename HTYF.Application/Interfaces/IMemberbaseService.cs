@@ -1,4 +1,6 @@
-﻿namespace HTYF.Application.Interfaces
+﻿using HTYF.Application.DTOs;
+
+namespace HTYF.Application.Interfaces
 {
     public interface IMemberbaseService
     {
@@ -7,5 +9,7 @@
             string fullName,
             string eventName
         );
+
+        Task<IEnumerable<MemberbaseEventDto>> GetEventsAsync();
     }
 }

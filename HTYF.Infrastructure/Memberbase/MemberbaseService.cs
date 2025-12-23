@@ -76,5 +76,24 @@ namespace HTYF.Infrastructure.Memberbase
                     email);
             }
         }
+
+        public async Task<IEnumerable<MemberbaseEventDto>> GetEventsAsync()
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync("/api/events");
+                response.EnsureSuccessStatusCode();
+
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<List<MemberbaseEventDto>>(json)
+                       ?? new List<MemberbaseEventDto>();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to fetch events from Memberbase");
+                return Enumerable.Empty<MemberbaseEventDto>();
+            }
+        }
+
     }
 }

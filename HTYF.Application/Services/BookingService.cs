@@ -1,7 +1,6 @@
 ﻿using HTYF.Application.Interfaces;
 using HTYF.Application.ViewModels;
 using HTYF.Domain.Entities;
-using System.Linq;
 
 namespace HTYF.Application.Services
 {
@@ -18,7 +17,7 @@ namespace HTYF.Application.Services
             _memberbaseService = memberbaseService;
         }
 
-        public async Task CreateBookingAsync(CreateEventBookingViewModel model)
+        public async Task<bool> CreateBookingAsync(CreateEventBookingViewModel model)
         {
             var booking = new EventBooking
             {
@@ -33,7 +32,7 @@ namespace HTYF.Application.Services
             _context.AddEventBooking(booking);
             await _context.SaveChangesAsync();
 
-            // Get event title safely (no EF async here)
+            // Fetch event title safely
             var eventName = _context.Events
                 .Where(e => e.Id == model.EventId)
                 .Select(e => e.Title)
@@ -41,12 +40,22 @@ namespace HTYF.Application.Services
 
             if (!string.IsNullOrWhiteSpace(eventName))
             {
-                await _memberbaseService.CreateOrUpdateContactAsync(
-                    model.Email,
-                    model.Name,
-                    eventName
-                );
+                try
+                {
+                    await _memberbaseService.CreateOrUpdateContactAsync(
+                        model.Email,
+                        model.Name,
+                        eventName
+                    );
+                }
+                catch
+                {
+                    // Booking must NOT fail if Memberbase fails
+                    // Error already logged inside MemberbaseService
+                }
             }
+
+            return true;
         }
     }
 }
