@@ -10,6 +10,7 @@ namespace HTYF.Application.Interfaces
         IQueryable<Event> Events { get; }
         IQueryable<EventBooking> EventBookings { get; }
 
+        void AddEventBooking(EventBooking booking);
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

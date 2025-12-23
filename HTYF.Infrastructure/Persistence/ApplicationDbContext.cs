@@ -22,5 +22,10 @@ namespace HTYF.Infrastructure.Persistence
         // Application layer sees IQueryable
         IQueryable<Event> IApplicationDbContext.Events => EventsDbSet;
         IQueryable<EventBooking> IApplicationDbContext.EventBookings => EventBookingsDbSet;
+
+        public void AddEventBooking(EventBooking booking)
+        {
+            EventBookingsDbSet.Add(booking);
+        }
     }
 }
