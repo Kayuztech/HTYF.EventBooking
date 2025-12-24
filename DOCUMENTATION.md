@@ -153,7 +153,7 @@ Previously committed secrets were rotated to ensure security.
 
 ## 10. AI Assistance Disclosure
 
-AI tools (ChatGPT) were used as a development aid to:
+AI tools (GitHub Copilot) were used as a development aid to:
 - Clarify Clean Architecture concepts
 - Validate ASP.NET Core MVC best practices
 - Assist in debugging and understanding framework behavior

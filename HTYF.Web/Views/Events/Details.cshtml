@@ -37,17 +37,27 @@
 
                     @if (User.Identity != null && User.Identity.IsAuthenticated)
                     {
-                        <p class="card-text">
-                            Secure your spot by booking now.
-                        </p>
+                        @if (Model.Capacity <= 0)
+                        {
+                            <button class="btn btn-secondary w-100" disabled>
+                                Fully Booked
+                            </button>
+                        }
+                        else
+                        {
+                            <p class="card-text">
+                                Secure your spot by booking now.
+                            </p>
 
-                        <a asp-controller="Bookings"
-                           asp-action="Create"
-                           asp-route-eventId="@Model.Id"
-                           class="btn btn-primary w-100">
-                            Book Now
-                        </a>
+                            <a asp-controller="Bookings"
+                               asp-action="Create"
+                               asp-route-eventId="@Model.Id"
+                               class="btn btn-primary w-100">
+                                Book Now
+                            </a>
+                        }
                     }
+
                     else
                     {
                         <p class="text-muted">

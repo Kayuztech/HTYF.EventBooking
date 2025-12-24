@@ -61,6 +61,10 @@
                                 @evt.EventDateTime.ToString("ddd, dd MMM yyyy")
                             </p>
 
+                            <span class="badge bg-light text-dark mb-2 d-inline-block">
+                                📍 @evt.Location
+                            </span>
+
                             <p class="card-text">
                                 @(string.IsNullOrWhiteSpace(evt.Summary)
                                                         ? "No description provided."
