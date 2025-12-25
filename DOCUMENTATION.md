@@ -34,7 +34,7 @@ The system supports:
 - Clean Architecture separation of concerns
 
 
-- 
+
 ## 2. Architecture & Design Decisions
 
 The application follows Clean Architecture principles to ensure maintainability, scalability, and testability.
